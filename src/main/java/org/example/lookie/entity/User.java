@@ -13,27 +13,27 @@ public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long Id;
+    private Long id;
+    private String subId;
     private String name;
     private String picture;
     private String email;
 
-    public static User createSocialUser(OidcDecodePayload oidcDecodePayload) {
-
+    // 새로운 사용자를 생성하는 팩토리 메서드
+    public static User createSocialUser(OidcDecodePayload payload) {
         User user = new User();
-        user.Id = oidcDecodePayload.sub();
-        user.name = oidcDecodePayload.nickname();
-        user.email = oidcDecodePayload.email();
-        user.picture = oidcDecodePayload.picture();
+        user.subId = payload.sub();
+        user.name = payload.nickname();
+        user.email = payload.email();
+        user.picture = payload.picture();
         return user;
     }
 
-    public static User of(KakaoUserInfoResponseDto dto) {
-        User user = new User();
-        user.name = dto.kakaoAccount.profile.nickName;
-        user.email = dto.kakaoAccount.email;
-        user.picture = dto.kakaoAccount.profile.profileImageUrl;
-        return user;
+    // 사용자 프로필을 업데이트하는 메서드
+    public void updateProfile(String nickname, String email, String profileImage) {
+        this.name = nickname;
+        this.email = email;
+        this.picture = profileImage;
     }
 
 }

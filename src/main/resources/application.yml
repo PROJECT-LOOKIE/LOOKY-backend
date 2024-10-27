@@ -13,14 +13,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        show_sql: true # h ibernate ?? ???
-
-kakao:
-  client_id: 413f57cff0f9594cd4181cc039215b48
-  redirect_uri: http://localhost:8080/callback
-
-custom:
-  jwt:
-    secretKey: u2Cemgw9SkZo7ykY+YwmxydJJA//W4v5mpuygldVjOEEY91Bb6DDHo8IwV03raIl+744gPlCLbzWrI/uHVZA+A==
-
-
+        show_sql: true
+  profiles:
+    active: redis,oauth,s3
+logging:
+  level:
+    org.example.lookie: DEBUG

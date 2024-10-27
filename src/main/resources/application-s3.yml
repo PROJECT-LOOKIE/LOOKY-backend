@@ -1,0 +1,15 @@
+# S3
+cloud:
+  aws:
+    s3:
+      bucket: <버킷 이름>
+      url: <버킷 URL>
+      expTime: 900000 # 15분
+    credentials:
+      access-key: <넣어야됨>
+      secret-key: <넣어야됨>
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
