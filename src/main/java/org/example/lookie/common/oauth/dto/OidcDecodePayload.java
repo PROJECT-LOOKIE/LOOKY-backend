@@ -6,7 +6,7 @@ import java.util.Map;
 public record OidcDecodePayload(
         String iss,
         String aud,
-        Long sub,
+        String sub,
         String nickname,
         String picture,
         String email
