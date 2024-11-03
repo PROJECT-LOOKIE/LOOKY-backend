@@ -15,16 +15,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3  # checkout 버전을 v3로 변경하여 Node.js 업데이트 반영
+      - uses: actions/checkout@v3
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3  # setup-java 버전을 v3로 업데이트
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'corretto'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      # application.yml 파일 생성
+      - name: Create application.yml
+        run: echo "${{ secrets.APPLICATION }}" > ./application.yml
+
+      # application-oauth.yml 파일 생성
+      - name: Create application-oauth.yml
+        run: echo "${{ secrets.APPLICATION_OAUTH }}" > ./application-oauth.yml
+
+      # application-redis.yml 파일 생성
+      - name: Create application-redis.yml
+        run: echo "${{ secrets.APPLICATION_REDIS }}" > ./application-redis.yml
+
+      # application-s3.yml 파일 생성
+      - name: Create application-s3.yml
+        run: echo "${{ secrets.APPLICATION_S3 }}" > ./application-s3.yml
 
       - name: Build with Gradle
         run: ./gradlew clean build
@@ -45,21 +61,13 @@ jobs:
       - name: Copy script
         run: cp ./scripts/*.sh ./deploy
 
-      # application.yml 파일 생성
-      - name: Create application.yml
-        run: echo "${{ secrets.APPLICATION }}" > ./deploy/application.yml
-
-      # application-oauth.yml 파일 생성
-      - name: Create application-oauth.yml
-        run: echo "${{ secrets.APPLICATION_OAUTH }}" > ./deploy/application-oauth.yml
-
-      # application-redis.yml 파일 생성
-      - name: Create application-redis.yml
-        run: echo "${{ secrets.APPLICATION_REDIS }}" > ./deploy/application-redis.yml
-
-      # application-s3.yml 파일 생성
-      - name: Create application-s3.yml
-        run: echo "${{ secrets.APPLICATION_S3 }}" > ./deploy/application-s3.yml
+      # Move yml files to deploy directory
+      - name: Move yml files to deploy directory
+        run: |
+          mv application.yml ./deploy/
+          mv application-oauth.yml ./deploy/
+          mv application-redis.yml ./deploy/
+          mv application-s3.yml ./deploy/
 
       - name: Make zip file
         run: zip -r ./lookie.zip ./deploy
