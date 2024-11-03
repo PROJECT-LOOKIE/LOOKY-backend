@@ -47,7 +47,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     // Database Drivers
-    runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
 
     // Swagger
