@@ -45,6 +45,22 @@ jobs:
       - name: Copy script
         run: cp ./scripts/*.sh ./deploy
 
+      # application.yml 파일 생성
+      - name: Create application.yml
+        run: echo "${{ secrets.APPLICATION }}" > ./deploy/application.yml
+
+      # application-oauth.yml 파일 생성
+      - name: Create application-oauth.yml
+        run: echo "${{ secrets.APPLICATION_OAUTH }}" > ./deploy/application-oauth.yml
+
+      # application-redis.yml 파일 생성
+      - name: Create application-redis.yml
+        run: echo "${{ secrets.APPLICATION_REDIS }}" > ./deploy/application-redis.yml
+
+      # application-s3.yml 파일 생성
+      - name: Create application-s3.yml
+        run: echo "${{ secrets.APPLICATION_S3 }}" > ./deploy/application-s3.yml
+
       - name: Make zip file
         run: zip -r ./lookie.zip ./deploy
         shell: bash
