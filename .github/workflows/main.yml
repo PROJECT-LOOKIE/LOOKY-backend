@@ -26,6 +26,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      # 디렉토리 생성
+      - name: Make Directory
+        run: mkdir -p deploy
+
       # application.yml 파일 생성
       - name: Create application.yml
         run: echo "${{ secrets.APPLICATION }}" > ./deploy/application.yml
@@ -44,10 +48,6 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build
-
-      # 디렉토리 생성
-      - name: Make Directory
-        run: mkdir -p deploy
 
       # Jar 파일 복사
       - name: Copy Jar
