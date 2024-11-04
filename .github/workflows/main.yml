@@ -37,6 +37,10 @@ jobs:
           KAKAO_CLIENT_SECRET: ${{ secrets.KAKAO_CLIENT_SECRET }}
         run: ./gradlew clean build --stacktrace --info
 
+      # deploy 디렉토리 생성
+      - name: Create deploy directory
+        run: mkdir -p ./deploy
+
       # Jar 파일 복사
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./deploy
