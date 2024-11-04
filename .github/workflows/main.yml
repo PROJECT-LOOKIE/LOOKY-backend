@@ -87,6 +87,10 @@ jobs:
                       --s3-location bucket=imagedata-ec2-lookie,bundleType=zip,key=lookie.zip \
                       --region ap-northeast-2
 
+      - name: Add EC2 Host to known_hosts
+        run: |
+          ssh-keyscan -H 43.200.2.168 >> ~/.ssh/known_hosts
+
       - name: Deploy to EC2
         env:
           KEY: ${{ secrets.EC2_SSH_KEY }}
