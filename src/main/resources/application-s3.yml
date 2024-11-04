@@ -1,20 +1,21 @@
 # S3
-cloud:
-  aws:
-    s3:
-      bucket: imagedata-ec2-lookie
-      url: https://imagedata-ec2-lookie.s3.ap-northeast-2.amazonaws.com/images/
-      expTime: 900000 # 15분
-    credentials:
-      access-key: ${AWS_ACCESS_KEY}
-      secret-key: ${AWS_SECRET_KEY}
-    region:
-      static: ap-northeast-2
-      auto: false
-    stack:
-      auto: false
-autoconfigure:
-  exclude:
-    - org.springframework.cloud.aws.autoconfigure.context.ContextCredentialsAutoConfiguration
-    - org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration
-    - org.springframework.cloud.aws.autoconfigure.context.ContextResourceLoaderAutoConfiguration
+spring:
+  cloud:
+    aws:
+      s3:
+        bucket: imagedata-ec2-lookie
+        url: https://imagedata-ec2-lookie.s3.ap-northeast-2.amazonaws.com/images/
+        expTime: 900000 # 15분
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      region:
+        static: ap-northeast-2
+        auto: false
+      stack:
+        auto: false
+  autoconfigure:
+    exclude:
+      - org.springframework.cloud.aws.autoconfigure.context.ContextCredentialsAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextResourceLoaderAutoConfiguration
