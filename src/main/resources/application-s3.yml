@@ -13,3 +13,8 @@ cloud:
       auto: false
     stack:
       auto: false
+autoconfigure:
+  exclude:
+    - org.springframework.cloud.aws.autoconfigure.context.ContextCredentialsAutoConfiguration
+    - org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration
+    - org.springframework.cloud.aws.autoconfigure.context.ContextResourceLoaderAutoConfiguration
