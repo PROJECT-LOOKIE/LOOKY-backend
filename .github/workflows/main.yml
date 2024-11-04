@@ -28,6 +28,8 @@ jobs:
 
       - name: Build with Gradle
         env:
+          accessKey: ${{ AWS_ACCESS_KEY }}
+          secretKey: ${{ AWS_SECRET_KEY }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
