@@ -27,6 +27,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          KAKAO_CLIENT_ID: ${{ secrets.KAKAO_CLIENT_ID }}
+          KAKAO_CLIENT_SECRET: ${{ secrets.KAKAO_CLIENT_SECRET }}
         run: ./gradlew clean build --stacktrace --info
 
       # Jar 파일 복사
@@ -65,6 +71,7 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          KAKAO_CLIENT_ID: ${{ secrets.KAKAO_CLIENT_ID }}
           KAKAO_CLIENT_ID: ${{ secrets.KAKAO_CLIENT_ID }}
           KAKAO_CLIENT_SECRET: ${{ secrets.KAKAO_CLIENT_SECRET }}
         run: |
