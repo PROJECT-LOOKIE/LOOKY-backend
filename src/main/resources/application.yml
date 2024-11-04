@@ -3,8 +3,8 @@ spring:
     name: lookie
   datasource:
     url: jdbc:mysql://lookie-lab-db.c3ccuccsqp8n.ap-northeast-2.rds.amazonaws.com:3306/lookie
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    username: admin
+    password: lookiedatabase
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true

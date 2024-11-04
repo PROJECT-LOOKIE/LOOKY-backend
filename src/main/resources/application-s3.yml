@@ -6,8 +6,8 @@ cloud:
       url: https://imagedata-ec2-lookie.s3.ap-northeast-2.amazonaws.com/images/
       expTime: 900000 # 15분
     credentials:
-      access-key: ${AWS_ACCESS_KEY}
-      secret-key: ${AWS_SECRET_KEY}
+      access-key: AKIAZQ3DTIFA33LHORUU
+      secret-key: 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
     region:
       static: ap-northeast-2
       auto: false
