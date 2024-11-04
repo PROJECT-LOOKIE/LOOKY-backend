@@ -35,7 +35,7 @@ public class FileService {
     }
 
     public String getDownloadPresignedUrl(String filePath) {
-        if (filePath != null && filePath.startsWith("images/")) {
+        if (filePath != null && filePath.startsWith("/images/")) {
             GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePresignedUrlRequest(bucket, filePath, HttpMethod.GET);
             URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
             return url.toString();
