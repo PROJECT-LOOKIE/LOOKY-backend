@@ -66,14 +66,11 @@ jobs:
         env:
           KEY: ${{ secrets.EC2_SSH_KEY }}
         run: |
-          # SSH 키 파일 생성
           echo "$KEY" > ec2_key.pem
           chmod 400 ec2_key.pem
           
-          # 파일 전송
           scp -i ec2_key.pem lookie.zip ubuntu@43.200.2.168:/home/ubuntu/
           
-          # EC2 인스턴스에서 JAR 파일 종료 및 재실행
           ssh -i ec2_key.pem ubuntu@43.200.2.168 << 'EOF'
             REPOSITORY=/home/ubuntu/app
 
@@ -96,8 +93,7 @@ jobs:
             echo "> JAR NAME: $JAR_NAME"
           
             echo "> $JAR_NAME 실행"
-            nohup java -jar -Duser.timezone=Asia/Seoul $JAR_NAME >> $REPOSITORY/nohup.out 2>&1 &
+            nohup java -jar -Duser.timezone=Asia/Seoul "$JAR_NAME" >> "$REPOSITORY/nohup.out" 2>&1 &
           EOF
           
-          # SSH 키 파일 삭제
           rm ec2_key.pem
