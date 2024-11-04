@@ -103,8 +103,8 @@ jobs:
           chmod 400 ec2_key.pem
           
           # 파일 전송 및 배포
-          scp -i ec2_key.pem lookie.zip ubuntu@43.200.2.168:/home/ubuntu/
-          ssh -i ec2_key.pem ubuntu@43.200.2.168 'unzip -o /home/ubuntu/lookie.zip -d /home/ubuntu/app && /home/ubuntu/app/deploy.sh'
+          scp -v -i ec2_key.pem lookie.zip ubuntu@43.200.2.168:/home/ubuntu/
+          ssh -v -i ec2_key.pem ubuntu@43.200.2.168 'unzip -o /home/ubuntu/lookie.zip -d /home/ubuntu/app && /home/ubuntu/app/deploy.sh'
           
           # SSH 키 파일 삭제
           rm ec2_key.pem
