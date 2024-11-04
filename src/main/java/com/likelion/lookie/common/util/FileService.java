@@ -17,10 +17,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileService {
 
-    @Value("${spring.cloud.aws.s3.bucket}")
+    @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    @Value("${spring.cloud.aws.s3.expTime}")
+    @Value("${cloud.aws.s3.expTime}")
     private Long expTime;
 
 
