@@ -13,15 +13,18 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
     private String subId;
+
     private String name;
-    private String picture;
     private String email;
+    private String picture;
+    private String nickname;
 
     // 새로운 사용자를 생성하는 팩토리 메서드
     public static User createSocialUser(OidcDecodePayload payload) {
         User user = new User();
-        user.subId = payload.sub();
+        user.nickname = payload.sub();
         user.name = payload.nickname();
         user.email = payload.email();
         user.picture = payload.picture();
