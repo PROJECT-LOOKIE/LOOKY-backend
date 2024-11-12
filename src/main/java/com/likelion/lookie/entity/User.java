@@ -14,6 +14,8 @@ public class User extends BaseEntity {
     @Column(name = "user_id")
     private Long id;
 
+    private String subId;
+
     private String name;
     private String email;
     private String picture;
