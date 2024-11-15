@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: lookie
+  datasource:
+    url: jdbc:mysql://lookie-lab-db.c3ccuccsqp8n.ap-northeast-2.rds.amazonaws.com:3306/lookie
+    username: admin
+    password: lookiedatabase
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+  profiles:
+    active: redis,oauth,s3
+logging:
+  level:
+    org.example.lookie: DEBUG
