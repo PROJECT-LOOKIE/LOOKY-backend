@@ -52,7 +52,7 @@ public interface ScheduleControllerDocs {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
                     content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
-    @Operation(summary = "메인 - 약속 초대", description = "약속 초대 API")
+    @Operation(summary = "메인 - 약속 정보 조회", description = "약속 정보 조회 API")
     ApplicationResponse<GetScheduleInfoDto> getSchedule(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @PathVariable("schedule_id") Long scheduleId);
