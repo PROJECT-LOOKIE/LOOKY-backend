@@ -12,8 +12,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum UserErrorCode implements BaseErrorCode {
 
-    NO_USER_INFO(HttpStatus.BAD_REQUEST, "400", "사용자 정보가 존재하지 않습니다.")
-    ;
+    NO_USER_INFO(HttpStatus.BAD_REQUEST, "400", "사용자 정보가 존재하지 않습니다."),
+    NICKNAME_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "400", "이미 사용 중인 닉네임입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
