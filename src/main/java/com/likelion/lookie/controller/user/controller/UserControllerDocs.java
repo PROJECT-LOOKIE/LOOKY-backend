@@ -34,7 +34,7 @@ public interface UserControllerDocs {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
                     content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
-    @Operation(summary = "온보딩-닉네임 설정", description = "닉네임 설정 및 프로필 사진 변경")
+    @Operation(summary = "온보딩-닉네임 설정", description = "닉네임 설정 및 프로필 사진 변경 API")
     ApplicationResponse<String> createUser(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @RequestBody OnboardingRequestDto requestDto);
