@@ -3,6 +3,7 @@ package com.likelion.lookie.controller.schedule.controller;
 
 import com.likelion.lookie.common.exception.ApplicationResponse;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
+import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoDto;
 import com.likelion.lookie.controller.user.dto.UserInfoDTO;
 import com.likelion.lookie.service.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -31,4 +32,13 @@ public class ScheduleController implements ScheduleControllerDocs {
     ) {
         return ApplicationResponse.ok(scheduleService.inviteSchedule(userInfoDTO.email(), scheduleId));
     }
+
+    @GetMapping("/{schedule_id}")
+    public ApplicationResponse<GetScheduleInfoDto> getSchedule(
+            @AuthenticationPrincipal UserInfoDTO userInfoDTO,
+            @PathVariable("schedule_id") Long scheduleId
+    ) {
+        return ApplicationResponse.ok(scheduleService.getScheduleInfo(userInfoDTO.name(), scheduleId));
+    }
+
 }

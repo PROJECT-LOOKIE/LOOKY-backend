@@ -5,6 +5,7 @@ import com.likelion.lookie.common.exception.schedule.ScheduleErrorCode;
 import com.likelion.lookie.common.exception.user.UserCustomException;
 import com.likelion.lookie.common.exception.user.UserErrorCode;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
+import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoDto;
 import com.likelion.lookie.entity.Look;
 import com.likelion.lookie.entity.Schedule;
 import com.likelion.lookie.entity.User;
@@ -76,4 +77,22 @@ public class ScheduleService {
 
         return "User successfully invited to the schedule";
     }
+
+    public GetScheduleInfoDto getScheduleInfo(String userName, Long scheduleId) {
+
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new ScheduleCustomException(ScheduleErrorCode.NO_SCHEDULE_INFO));
+
+        int people = lookRepository.countByScheduleId(scheduleId);
+
+        return GetScheduleInfoDto.builder()
+                .id(scheduleId)
+                .name(schedule.getName())
+                .location(schedule.getLocation())
+                .userName(userName)
+                .people(people)
+                .build();
+    }
+
+    
 }

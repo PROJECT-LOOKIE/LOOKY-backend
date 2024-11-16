@@ -3,6 +3,7 @@ package com.likelion.lookie.controller.schedule.controller;
 
 import com.likelion.lookie.common.exception.ApplicationResponse;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
+import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoDto;
 import com.likelion.lookie.controller.user.dto.UserInfoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,4 +43,18 @@ public interface ScheduleControllerDocs {
     ApplicationResponse<String> inviteSchedule(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @PathVariable("schedule_id") Long scheduleId);
+
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
+    })
+    @Operation(summary = "메인-약속 초대", description = "약속 초대 API")
+    ApplicationResponse<GetScheduleInfoDto> getSchedule(
+            @AuthenticationPrincipal UserInfoDTO userInfoDTO,
+            @PathVariable("schedule_id") Long scheduleId);
+
 }

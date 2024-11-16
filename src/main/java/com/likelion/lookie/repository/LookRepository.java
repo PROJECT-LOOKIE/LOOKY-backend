@@ -9,4 +9,7 @@ public interface LookRepository extends JpaRepository<Look, Long> {
 
     boolean existsByUserAndSchedule(User user, Schedule schedule);
 
+    int countByScheduleId(Long scheduleId);
+
+
 }
