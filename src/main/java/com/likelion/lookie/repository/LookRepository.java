@@ -11,5 +11,7 @@ public interface LookRepository extends JpaRepository<Look, Long> {
 
     int countByScheduleId(Long scheduleId);
 
+    Look findByUserAndSchedule(User user, Schedule schedule);
+
 
 }
