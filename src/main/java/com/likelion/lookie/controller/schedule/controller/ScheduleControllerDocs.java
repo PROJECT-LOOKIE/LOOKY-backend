@@ -26,7 +26,7 @@ public interface ScheduleControllerDocs {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
                     content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
-    @Operation(summary = "메인-약속 생성 페이지", description = "약속 생성 API")
+    @Operation(summary = "메인 - 약속 생성 페이지", description = "약속 생성 API")
     ApplicationResponse<String> createSchedule(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @RequestBody CreateScheduleRequestDto registerScheduleRequestDto);
@@ -39,7 +39,7 @@ public interface ScheduleControllerDocs {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
                     content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
-    @Operation(summary = "메인-약속 초대", description = "약속 초대 API")
+    @Operation(summary = "메인 - 약속 초대", description = "약속 초대 API")
     ApplicationResponse<String> inviteSchedule(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @PathVariable("schedule_id") Long scheduleId);
@@ -52,7 +52,7 @@ public interface ScheduleControllerDocs {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
                     content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
-    @Operation(summary = "메인-약속 초대", description = "약속 초대 API")
+    @Operation(summary = "메인 - 약속 초대", description = "약속 초대 API")
     ApplicationResponse<GetScheduleInfoDto> getSchedule(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @PathVariable("schedule_id") Long scheduleId);

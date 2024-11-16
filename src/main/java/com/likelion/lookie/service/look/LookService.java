@@ -78,4 +78,11 @@ public class LookService {
 
         return responseDtos;
     }
+
+    public String deleteLook(Long lookId) {
+        clothesLookRepository.deleteAllByLookId(lookId);
+        lookRepository.deleteById(lookId);
+
+        return "Look successfully deleted.";
+    }
 }

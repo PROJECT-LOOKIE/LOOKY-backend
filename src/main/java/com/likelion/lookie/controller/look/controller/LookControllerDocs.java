@@ -28,7 +28,7 @@ public interface LookControllerDocs {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
                     content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
-    @Operation(summary = "메인-룩 추가", description = "룩 추가 API")
+    @Operation(summary = "메인 - 룩 추가", description = "룩 추가 API")
     ApplicationResponse<String> createLook(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @RequestBody CreateLookRequestDto requestDto);
@@ -40,8 +40,19 @@ public interface LookControllerDocs {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
                     content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
-    @Operation(summary = "메인-룩 조회", description = "룩 조회 API")
+    @Operation(summary = "메인 - 룩 조회", description = "룩 조회 API")
     ApplicationResponse<List<GetLookResponseDto>> getLook(
             @PathVariable Long schedule_id);
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
+    })
+    @Operation(summary = "메인 - 룩 삭제", description = "룩 삭제 API")
+    ApplicationResponse<String> deleteLook(
+            @PathVariable Long look_id);
 
 }

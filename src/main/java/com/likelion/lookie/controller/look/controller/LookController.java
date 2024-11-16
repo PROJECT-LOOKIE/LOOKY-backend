@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/look")
-public class LookController {
+public class LookController implements LookControllerDocs{
 
     private final LookService lookService;
 
@@ -31,5 +31,12 @@ public class LookController {
             @PathVariable Long schedule_id
     ) {
         return ApplicationResponse.ok(lookService.getLook(schedule_id));
+    }
+
+    @DeleteMapping("/{look_id}")
+    public ApplicationResponse<String> deleteLook(
+            @PathVariable Long look_id
+    ) {
+        return ApplicationResponse.ok(lookService.deleteLook(look_id));
     }
 }
