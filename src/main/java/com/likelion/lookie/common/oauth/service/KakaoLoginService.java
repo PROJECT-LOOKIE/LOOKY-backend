@@ -57,7 +57,7 @@ public class KakaoLoginService extends OidcUserService {
                 .map(existingUser -> {
                     // 업데이트할 정보가 있다면 업데이트
                     existingUser.updateProfile(
-                            oidcDecodePayload.nickname(),
+                            oidcDecodePayload.name(),
                             oidcDecodePayload.email(),
                             oidcDecodePayload.picture()
                     );
