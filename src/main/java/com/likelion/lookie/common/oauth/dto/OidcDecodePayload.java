@@ -7,7 +7,7 @@ public record OidcDecodePayload(
         String iss,
         String aud,
         String sub,
-        String nickname,
+        String name,
         String picture,
         String email
 ) {
@@ -17,7 +17,7 @@ public record OidcDecodePayload(
         claims.put("iss", iss);
         claims.put("aud", aud);
         claims.put("sub", sub);
-        claims.put("nickname", nickname);
+        claims.put("nickname", name);
         claims.put("picture", picture);
         claims.put("email", email);
         return claims;
