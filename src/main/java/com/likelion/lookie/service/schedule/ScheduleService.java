@@ -1,5 +1,7 @@
 package com.likelion.lookie.service.schedule;
 
+import com.likelion.lookie.common.exception.schedule.ScheduleCustomException;
+import com.likelion.lookie.common.exception.schedule.ScheduleErrorCode;
 import com.likelion.lookie.common.exception.user.UserCustomException;
 import com.likelion.lookie.common.exception.user.UserErrorCode;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
@@ -51,4 +53,27 @@ public class ScheduleService {
         return "Schedule successfully created.";
     }
 
+    public String inviteSchedule(String userEmail, Long scheduleId) {
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UserCustomException(UserErrorCode.NO_USER_INFO));
+
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new ScheduleCustomException(ScheduleErrorCode.NO_SCHEDULE_INFO));
+
+        // 이미 존재하는 Look인지 확인
+        boolean lookExists = lookRepository.existsByUserAndSchedule(user, schedule);
+        if (lookExists) {
+            throw new ScheduleCustomException(ScheduleErrorCode.DUPLICATE_INVITATION);
+        }
+
+        Look look = Look.builder()
+                .user(user)
+                .schedule(schedule)
+                .build();
+
+        lookRepository.save(look);
+
+        return "User successfully invited to the schedule";
+    }
 }

@@ -7,10 +7,7 @@ import com.likelion.lookie.controller.user.dto.UserInfoDTO;
 import com.likelion.lookie.service.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,5 +22,13 @@ public class ScheduleController implements ScheduleControllerDocs {
             @RequestBody CreateScheduleRequestDto registerScheduleRequestDto
     ) {
         return ApplicationResponse.ok(scheduleService.createSchedule(userInfoDTO.email(), registerScheduleRequestDto));
+    }
+
+    @PostMapping("/invite/{schedule_id}")
+    public ApplicationResponse<String> inviteSchedule(
+            @AuthenticationPrincipal UserInfoDTO userInfoDTO,
+            @PathVariable("schedule_id") Long scheduleId
+    ) {
+        return ApplicationResponse.ok(scheduleService.inviteSchedule(userInfoDTO.email(), scheduleId));
     }
 }
