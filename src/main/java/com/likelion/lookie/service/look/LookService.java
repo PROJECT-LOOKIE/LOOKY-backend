@@ -6,11 +6,16 @@ import com.likelion.lookie.common.exception.schedule.ScheduleCustomException;
 import com.likelion.lookie.common.exception.schedule.ScheduleErrorCode;
 import com.likelion.lookie.common.exception.user.UserCustomException;
 import com.likelion.lookie.common.exception.user.UserErrorCode;
+import com.likelion.lookie.common.util.FileService;
 import com.likelion.lookie.controller.look.dto.CreateLookRequestDto;
+import com.likelion.lookie.controller.look.dto.GetLookResponseDto;
 import com.likelion.lookie.entity.*;
 import com.likelion.lookie.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +26,8 @@ public class LookService {
     private final ScheduleRepository scheduleRepository;
     private final ClothesRepository clothesRepository;
     private final ClothesLookRepository clothesLookRepository;
+
+    private final FileService fileService;
 
 
     public String createLook(String email, CreateLookRequestDto requestDto) {
@@ -45,5 +52,30 @@ public class LookService {
         }
 
         return "Look successfully created.";
+    }
+
+    public List<GetLookResponseDto> getLook(Long scheduleId) {
+        List<Look> looks = lookRepository.findAllByScheduleId(scheduleId);
+
+        List<GetLookResponseDto> responseDtos = new ArrayList<>();
+        for (Look look : looks) {
+            List<ClothesLook> clothesLooks = clothesLookRepository.findAllByLook(look);
+            List<String> clothesImages = new ArrayList<>();
+
+            for (ClothesLook clothesLook : clothesLooks) {
+                String presignedUrl = fileService.getDownloadPresignedUrl(clothesLook.getClothes().getImageUrl());
+                clothesImages.add(presignedUrl);
+            }
+
+            GetLookResponseDto getLookResponseDto = GetLookResponseDto.builder()
+                    .lookId(look.getId())
+                    .name(look.getUser().getName())
+                    .clothesImages(clothesImages)
+                    .build();
+
+            responseDtos.add(getLookResponseDto);
+        }
+
+        return responseDtos;
     }
 }

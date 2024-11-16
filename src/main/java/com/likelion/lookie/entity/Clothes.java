@@ -20,5 +20,6 @@ public class Clothes {
     private String brand;
     private String category;
     private int price;
+    private String imageUrl;
 
 }
