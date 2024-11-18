@@ -1,4 +1,4 @@
-package com.likelion.lookie.common.exception.user;
+package com.likelion.lookie.common.exception.clothes;
 
 import com.likelion.lookie.common.exception.BaseErrorCode;
 import lombok.Getter;
@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UserCustomException extends RuntimeException {
+public class ClothesCustomException extends RuntimeException {
 
     private final BaseErrorCode errorCode;
 
-    public UserCustomException(BaseErrorCode errorCode) {
+    public ClothesCustomException(BaseErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }
-
 }
