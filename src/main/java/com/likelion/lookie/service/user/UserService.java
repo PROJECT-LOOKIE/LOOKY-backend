@@ -26,13 +26,13 @@ public class UserService {
 
     public String createUser(UserInfoDTO userInfoDTO, OnboardingRequestDto requestDto) {
 
-        boolean nicknameExists = userRepository.existsByNickname(requestDto.nickname());
+        User user = userRepository.findByEmail(userInfoDTO.email())
+                .orElseThrow(() -> new UserCustomException(UserErrorCode.NO_USER_INFO));
+
+        boolean nicknameExists = userRepository.existsByNicknameAndNotUserId(requestDto.nickname(), user.getId());
         if (nicknameExists) {
             throw new UserCustomException(UserErrorCode.NICKNAME_ALREADY_EXISTS);
         }
-
-        User user = userRepository.findByEmail(userInfoDTO.email())
-                .orElseThrow(() -> new UserCustomException(UserErrorCode.NO_USER_INFO));
 
         user.updateNickname(requestDto.nickname());
 
