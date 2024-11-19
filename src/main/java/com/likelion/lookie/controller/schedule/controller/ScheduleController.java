@@ -3,12 +3,15 @@ package com.likelion.lookie.controller.schedule.controller;
 
 import com.likelion.lookie.common.exception.ApplicationResponse;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
+import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoByDateDto;
 import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoDto;
 import com.likelion.lookie.controller.user.dto.UserInfoDTO;
 import com.likelion.lookie.service.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,6 +42,14 @@ public class ScheduleController implements ScheduleControllerDocs {
             @PathVariable("schedule_id") Long scheduleId
     ) {
         return ApplicationResponse.ok(scheduleService.getScheduleInfo(userInfoDTO.name(), scheduleId));
+    }
+
+    @GetMapping
+    public ApplicationResponse<List<Long>> getScheduleByDate(
+            @AuthenticationPrincipal UserInfoDTO userInfoDTO,
+            @RequestBody GetScheduleInfoByDateDto getScheduleInfoByDateDto
+            ) {
+        return ApplicationResponse.ok(scheduleService.getScheduleInfoByDate(userInfoDTO.email(), getScheduleInfoByDateDto));
     }
 
 }
