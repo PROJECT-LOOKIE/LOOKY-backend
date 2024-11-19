@@ -17,4 +17,6 @@ public interface LookRepository extends JpaRepository<Look, Long> {
 
     Look findByUserAndSchedule(User user, Schedule schedule);
 
+    List<Look> findAllByUser(User user);
+
 }
