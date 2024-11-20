@@ -8,6 +8,6 @@ import java.util.List;
 public record GetLookResponseDto(
         Long lookId,
         String name,
-        List<String> clothesImages
+        List<GetLookResponseDetailDto> clothes
 ) {
 }

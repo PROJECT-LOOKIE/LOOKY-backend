@@ -21,4 +21,8 @@ public class ClothesLook {
     @JoinColumn(name = "look_id")
     private Look look;
 
+    private double x;
+    private double y;
+    private double size;
+
 }
