@@ -5,6 +5,7 @@ import com.likelion.lookie.common.exception.schedule.ScheduleErrorCode;
 import com.likelion.lookie.common.exception.user.UserCustomException;
 import com.likelion.lookie.common.exception.user.UserErrorCode;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
+import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoByDateDto;
 import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoDto;
 import com.likelion.lookie.entity.Look;
 import com.likelion.lookie.entity.Schedule;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -94,5 +97,25 @@ public class ScheduleService {
                 .build();
     }
 
-    
+
+    public List<Long> getScheduleInfoByDate(String email, GetScheduleInfoByDateDto getScheduleInfoByDateDto) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserCustomException(UserErrorCode.NO_USER_INFO));
+
+        List<Look> userLooks = lookRepository.findAllByUser(user);
+
+        LocalDate targetDate = LocalDate.of(
+                getScheduleInfoByDateDto.year(),
+                getScheduleInfoByDateDto.month(),
+                getScheduleInfoByDateDto.day()
+        );
+
+        // Looks에서 해당 날짜의 Schedule ID를 필터링
+        return userLooks.stream()
+                .map(Look::getSchedule) // Look에서 Schedule 가져오기
+                .filter(schedule -> schedule != null && schedule.getDate().isEqual(targetDate)) // 날짜 일치 확인
+                .map(Schedule::getId) // Schedule의 ID 가져오기
+                .collect(Collectors.toList());
+    }
 }
