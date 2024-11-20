@@ -4,12 +4,13 @@ package com.likelion.lookie.controller.clothes.controller;
 import com.likelion.lookie.controller.clothes.dto.CreateClothesRequestDto;
 import com.likelion.lookie.controller.clothes.dto.GetClothesResponseDto;
 import com.likelion.lookie.service.clothes.ClothesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(name = "Clothes", description = "Clothes API")
 @RestController
 @RequestMapping("/api/v1/closet/item")
 public class ClothesController implements ClothesControllerDocs{
