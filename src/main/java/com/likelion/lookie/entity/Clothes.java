@@ -2,6 +2,7 @@ package com.likelion.lookie.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,5 +22,19 @@ public class Clothes {
     private String category;
     private int price;
     private String imageUrl;
+
+    public Clothes(User user, String brand, String category, Integer price, String imageUrl) {
+        this.user = user;
+        this.brand = brand;
+        this.category = category;
+        this.price = price;
+        this.imageUrl = imageUrl;
+    }
+
+    public void update(String brand, String category, Integer price) {
+        this.brand = brand;
+        this.category = category;
+        this.price = price;
+    }
 
 }
