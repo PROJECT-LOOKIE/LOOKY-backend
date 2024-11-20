@@ -4,6 +4,7 @@ public record GetClothesResponseDto(
         Long id,
         String brand,
         String category,
-        Integer price
+        Integer price,
+        String imageUrl
 ) {
 }
