@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/closet/item")
-public class ClothesController {
+public class ClothesController implements ClothesControllerDocs{
     private final ClothesService clothesService;
 
     public ClothesController(ClothesService clothesService) {
