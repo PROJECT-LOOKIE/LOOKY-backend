@@ -8,7 +8,9 @@ import com.likelion.lookie.common.exception.user.UserCustomException;
 import com.likelion.lookie.common.exception.user.UserErrorCode;
 import com.likelion.lookie.common.util.FileService;
 import com.likelion.lookie.controller.look.dto.CreateLookRequestDto;
+import com.likelion.lookie.controller.look.dto.GetLookResponseDetailDto;
 import com.likelion.lookie.controller.look.dto.GetLookResponseDto;
+import com.likelion.lookie.controller.look.dto.CreateLookRequestDetailDto;
 import com.likelion.lookie.entity.*;
 import com.likelion.lookie.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -40,13 +42,16 @@ public class LookService {
 
         Look look = lookRepository.findByUserAndSchedule(user, schedule);
 
-        for (Long clothesId : requestDto.clothesId()) {
-            Clothes clothes = clothesRepository.findById(clothesId)
+        for (CreateLookRequestDetailDto detailDto : requestDto.clothes()) {
+            Clothes clothes = clothesRepository.findById(detailDto.clothesId())
                     .orElseThrow(() -> new ClothesCustomException(ClothesErrorCode.NO_CLOTHES_INFO));
 
             ClothesLook clothesLook = ClothesLook.builder()
                     .clothes(clothes)
                     .look(look)
+                    .x(detailDto.x())
+                    .y(detailDto.y())
+                    .size(detailDto.size())
                     .build();
             clothesLookRepository.save(clothesLook);
         }
@@ -55,22 +60,33 @@ public class LookService {
     }
 
     public List<GetLookResponseDto> getLook(Long scheduleId) {
+
+        // 스케줄의 룩들을 전체 저장
         List<Look> looks = lookRepository.findAllByScheduleId(scheduleId);
 
         List<GetLookResponseDto> responseDtos = new ArrayList<>();
+
+        // 각각의 룩들을 돌면서
         for (Look look : looks) {
+
+            // 개별 옷들 조회
             List<ClothesLook> clothesLooks = clothesLookRepository.findAllByLook(look);
-            List<String> clothesImages = new ArrayList<>();
+            List<GetLookResponseDetailDto> detailDtos = new ArrayList<>();
 
             for (ClothesLook clothesLook : clothesLooks) {
                 String presignedUrl = fileService.getDownloadPresignedUrl(clothesLook.getClothes().getImageUrl());
-                clothesImages.add(presignedUrl);
+                GetLookResponseDetailDto detailDto = GetLookResponseDetailDto.builder()
+                        .clothesImage(presignedUrl)
+                        .x(clothesLook.getX())
+                        .y(clothesLook.getY())
+                        .size(clothesLook.getSize())
+                        .build();
             }
 
             GetLookResponseDto getLookResponseDto = GetLookResponseDto.builder()
                     .lookId(look.getId())
                     .name(look.getUser().getName())
-                    .clothesImages(clothesImages)
+                    .clothes(detailDtos)
                     .build();
 
             responseDtos.add(getLookResponseDto);

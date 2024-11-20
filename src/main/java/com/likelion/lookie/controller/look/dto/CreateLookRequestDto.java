@@ -4,6 +4,6 @@ import java.util.List;
 
 public record CreateLookRequestDto(
         Long scheduleId,
-        List<Long> clothesId
+        List<CreateLookRequestDetailDto> clothes
 ) {
 }
