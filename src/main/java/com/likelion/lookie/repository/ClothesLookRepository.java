@@ -12,4 +12,5 @@ public interface ClothesLookRepository extends JpaRepository<ClothesLook, Long> 
 
     void deleteAllByLookId(Long lookId);
 
+    void deleteAllByClothesId(Long clothesId);
 }
