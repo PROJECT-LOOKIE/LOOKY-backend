@@ -47,9 +47,11 @@ public class ScheduleController implements ScheduleControllerDocs {
     @GetMapping
     public ApplicationResponse<List<Long>> getScheduleByDate(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
-            @RequestBody GetScheduleInfoByDateDto getScheduleInfoByDateDto
+            @RequestParam int year,
+            @RequestParam int month,
+            @RequestParam int day
             ) {
-        return ApplicationResponse.ok(scheduleService.getScheduleInfoByDate(userInfoDTO.email(), getScheduleInfoByDateDto));
+        return ApplicationResponse.ok(scheduleService.getScheduleInfoByDate(userInfoDTO.email(), year, month, day));
     }
 
 }
