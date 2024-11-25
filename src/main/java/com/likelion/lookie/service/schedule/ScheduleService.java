@@ -98,7 +98,7 @@ public class ScheduleService {
     }
 
 
-    public List<Long> getScheduleInfoByDate(String email, GetScheduleInfoByDateDto getScheduleInfoByDateDto) {
+    public List<Long> getScheduleInfoByDate(String email, int year, int month, int day) {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserCustomException(UserErrorCode.NO_USER_INFO));
@@ -106,9 +106,9 @@ public class ScheduleService {
         List<Look> userLooks = lookRepository.findAllByUser(user);
 
         LocalDate targetDate = LocalDate.of(
-                getScheduleInfoByDateDto.year(),
-                getScheduleInfoByDateDto.month(),
-                getScheduleInfoByDateDto.day()
+                year,
+                month,
+                day
         );
 
         // Looks에서 해당 날짜의 Schedule ID를 필터링

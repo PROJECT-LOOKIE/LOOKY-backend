@@ -16,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -70,6 +71,9 @@ public interface ScheduleControllerDocs {
     @Operation(summary = "메인 - 날짜로 약속 ID 조회", description = "날짜를 이용하여 약속 ID를 조회하는 API")
     ApplicationResponse<List<Long>> getScheduleByDate(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
-            @RequestBody GetScheduleInfoByDateDto getScheduleInfoByDateDto);
+            @RequestParam int year,
+            @RequestParam int month,
+            @RequestParam int day
+    );
 
 }
