@@ -5,7 +5,6 @@ import com.likelion.lookie.common.exception.schedule.ScheduleErrorCode;
 import com.likelion.lookie.common.exception.user.UserCustomException;
 import com.likelion.lookie.common.exception.user.UserErrorCode;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
-import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoByDateDto;
 import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoDto;
 import com.likelion.lookie.entity.Look;
 import com.likelion.lookie.entity.Schedule;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,12 +37,13 @@ public class ScheduleService {
         LocalDate date = LocalDate.parse(requestDto.date(), DateTimeFormatter.ISO_DATE);
 
         Schedule schedule = Schedule.builder()
+                .emoji(requestDto.emoji())
                 .name(requestDto.name())
                 .date(date)
                 .location(requestDto.location())
                 .atmosphere(requestDto.atmosphere())
                 .decoration(requestDto.decoration())
-                .people(requestDto.people())
+                .people(0)
                 .build();
 
         scheduleRepository.save(schedule);
@@ -90,15 +91,17 @@ public class ScheduleService {
 
         return GetScheduleInfoDto.builder()
                 .id(scheduleId)
+                .emoji(schedule.getEmoji())
                 .name(schedule.getName())
                 .location(schedule.getLocation())
+                .atmosphere(schedule.getAtmosphere())
                 .userName(userName)
                 .people(people)
                 .build();
     }
 
 
-    public List<Long> getScheduleInfoByDate(String email, int year, int month, int day) {
+    public List<GetScheduleInfoDto> getScheduleInfoByDate(String email, int year, int month, int day) {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserCustomException(UserErrorCode.NO_USER_INFO));
@@ -112,10 +115,17 @@ public class ScheduleService {
         );
 
         // Looks에서 해당 날짜의 Schedule ID를 필터링
-        return userLooks.stream()
+        List<Long> schedulesIds =  userLooks.stream()
                 .map(Look::getSchedule) // Look에서 Schedule 가져오기
                 .filter(schedule -> schedule != null && schedule.getDate().isEqual(targetDate)) // 날짜 일치 확인
                 .map(Schedule::getId) // Schedule의 ID 가져오기
-                .collect(Collectors.toList());
+                .toList();
+
+        List<GetScheduleInfoDto> dtos = new ArrayList<>();
+        for (Long schedulesId : schedulesIds) {
+            dtos.add(getScheduleInfo(user.getName(), schedulesId));
+        }
+
+        return dtos;
     }
 }

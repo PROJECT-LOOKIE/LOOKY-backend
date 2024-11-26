@@ -3,7 +3,6 @@ package com.likelion.lookie.controller.schedule.controller;
 
 import com.likelion.lookie.common.exception.ApplicationResponse;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
-import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoByDateDto;
 import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoDto;
 import com.likelion.lookie.controller.user.dto.UserInfoDTO;
 import com.likelion.lookie.service.schedule.ScheduleService;
@@ -45,7 +44,7 @@ public class ScheduleController implements ScheduleControllerDocs {
     }
 
     @GetMapping
-    public ApplicationResponse<List<Long>> getScheduleByDate(
+    public ApplicationResponse<List<GetScheduleInfoDto>> getScheduleByDate(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @RequestParam int year,
             @RequestParam int month,
