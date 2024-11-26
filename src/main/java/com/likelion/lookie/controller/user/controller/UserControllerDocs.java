@@ -2,6 +2,7 @@ package com.likelion.lookie.controller.user.controller;
 
 import com.likelion.lookie.controller.user.dto.OnboardingRequestDto;
 import com.likelion.lookie.controller.user.dto.UserInfoDTO;
+import com.likelion.lookie.controller.user.dto.UserMypageDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,5 +40,17 @@ public interface UserControllerDocs {
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @RequestBody OnboardingRequestDto requestDto);
 
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
+    })
+    @Operation(summary = "마이페이지 - 사용자 정보 조회", description = "사용자 정보 조회 (마이페이지) API")
+    ApplicationResponse<UserMypageDto> getUserMypage(
+            @AuthenticationPrincipal UserInfoDTO userInfoDTO
+    );
 
 }
