@@ -3,7 +3,6 @@ package com.likelion.lookie.controller.schedule.controller;
 
 import com.likelion.lookie.common.exception.ApplicationResponse;
 import com.likelion.lookie.controller.schedule.dto.CreateScheduleRequestDto;
-import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoByDateDto;
 import com.likelion.lookie.controller.schedule.dto.GetScheduleInfoDto;
 import com.likelion.lookie.controller.user.dto.UserInfoDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,8 +67,8 @@ public interface ScheduleControllerDocs {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
                     content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
-    @Operation(summary = "메인 - 날짜로 약속 ID 조회", description = "날짜를 이용하여 약속 ID를 조회하는 API")
-    ApplicationResponse<List<Long>> getScheduleByDate(
+    @Operation(summary = "메인 - 날짜로 약속 정보 조회", description = "날짜를 이용하여 약속 정보를 조회하는 API")
+    ApplicationResponse<List<GetScheduleInfoDto>> getScheduleByDate(
             @AuthenticationPrincipal UserInfoDTO userInfoDTO,
             @RequestParam int year,
             @RequestParam int month,

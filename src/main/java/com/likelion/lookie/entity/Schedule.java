@@ -16,8 +16,10 @@ public class Schedule {
     @Column(name = "schedule_id")
     private Long id;
 
+    @Column(columnDefinition = "TEXT") // 이모지 데이터가 길어질 경우 TEXT 타입 사용 가능
+    private String emoji;
     private String name;
-    private LocalDate date;  // 날짜 필드를 LocalDate로 변경
+    private LocalDate date;
     private String location;
     private String atmosphere;
     private int decoration;

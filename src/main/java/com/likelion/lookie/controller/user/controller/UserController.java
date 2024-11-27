@@ -1,6 +1,7 @@
 package com.likelion.lookie.controller.user.controller;
 
 import com.likelion.lookie.controller.user.dto.OnboardingRequestDto;
+import com.likelion.lookie.controller.user.dto.UserMypageDto;
 import lombok.RequiredArgsConstructor;
 import com.likelion.lookie.common.exception.ApplicationResponse;
 import com.likelion.lookie.controller.user.dto.UserInfoDTO;
@@ -30,4 +31,10 @@ public class UserController implements UserControllerDocs {
         return ApplicationResponse.ok(userService.createUser(userInfoDTO, requestDto));
     }
 
+    @GetMapping("/mypage")
+    public ApplicationResponse<UserMypageDto> getUserMypage(
+            @AuthenticationPrincipal UserInfoDTO userInfoDTO
+    ) {
+        return ApplicationResponse.ok(userService.getUserMypage(userInfoDTO.email()));
+    }
 }
